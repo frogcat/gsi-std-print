@@ -16,7 +16,7 @@
             var maxy = Math.ceil(box[3] / 256);
             for (var y = miny; y <= maxy; y++) {
                 for (var x = minx; x <= maxx; x++) {
-                    var src = "http://cyberjapandata.gsi.go.jp/xyz/std/18/" + x + "/" + y + ".png";
+                    var src = "https://cyberjapandata.gsi.go.jp/xyz/std/18/" + x + "/" + y + ".png";
                     var img = document.createElementNS("http://www.w3.org/2000/svg", "image");
                     img.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", src);
                     img.setAttribute("x", x * 256 - box[0]);
