@@ -64,18 +64,16 @@
     }).on("click", handler).addTo(map);
     map.on("move", function() {
       circle.setLatLng(map.getCenter());
-      var b = circle.getBounds();
-      var s = b.getSouth();
-      var n = b.getNorth();
-      var e = b.getEast();
-      var w = b.getWest();
+      var c = map.project(map.getCenter(), 18);
+      var p = map.project(circle.getBounds().getSouthEast(), 18).subtract(c);
+      var q = p.multiplyBy(297 / 210);
       landscape.setBounds([
-        [s, (w + e) / 2 - (e - w) * 297 / 210 / 2],
-        [n, (w + e) / 2 + (e - w) * 297 / 210 / 2]
+        map.unproject([c.x - q.x, c.y - p.y], 18),
+        map.unproject([c.x + q.x, c.y + p.y], 18)
       ]);
       portrait.setBounds([
-        [(s + n) / 2 - (s - n) * 297 / 210 / 2, e],
-        [(s + n) / 2 + (s - n) * 297 / 210 / 2, w]
+        map.unproject([c.x - p.x, c.y - q.y], 18),
+        map.unproject([c.x + p.x, c.y + q.y], 18)
       ]);
     }).fire("move");
   </script>
